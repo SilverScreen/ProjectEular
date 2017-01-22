@@ -124,7 +124,6 @@ def main():
     number_words = ""
     for number in range(1, 1001):
         number_words += map_number_to_word(number)
-    print(number_words)
     print(len(number_words))
 
 
