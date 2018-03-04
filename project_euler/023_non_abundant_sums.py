@@ -16,26 +16,12 @@ Find the sum of all the positive integers which cannot be written as the sum of 
 """
 
 
-def _is_number_abundant(number):
-    return _sum_of_proper_divisors(number) > number
-
-
-def _sum_of_proper_divisors(number):
-    return sum(n for n in range(1, number) if number % n == 0)
-
-
-def _print_sum_of_non_abundant_numbers():
-    abundant_sums = set()
+def _get_sum_of_non_abundant_numbers():
+    print("Getting set of abundant numbers...")
     abundant_numbers = _get_set_of_abundant_numbers()
-    print("Number of abundant numbers: ", len(abundant_numbers))
+
     print("Generating set of abundant number sums...")
-    for a in abundant_numbers:
-        for b in abundant_numbers:
-            sum_of_nums = a + b
-            if sum_of_nums <= 28123:
-                abundant_sums.add(sum_of_nums)
-            else:
-                break
+    abundant_sums = get_abundant_number_sums(abundant_numbers)
 
     print("Generating set of all integers up to and including 28123...")
     list_all_integers = set(n for n in range(1, 28123))
@@ -44,14 +30,33 @@ def _print_sum_of_non_abundant_numbers():
           "be written as the sum of two abundant numbers...")
     non_abundant_sums = list_all_integers - abundant_sums
 
-    print("sum of all the positive integers which cannot be written as the sum of two abundant numbers...")
+    print("Sum of all the positive integers which cannot be written as the sum of two abundant numbers...")
     print("Is...")
     print(sum(non_abundant_sums))
 
 
 def _get_set_of_abundant_numbers():
-    print("Getting set of abundant numbers...")
     return set(num for num in range(1, 28123) if _is_number_abundant(num))
 
 
-_print_sum_of_non_abundant_numbers()
+def _is_number_abundant(number):
+    return _sum_of_proper_divisors(number) > number
+
+
+def _sum_of_proper_divisors(number):
+    return sum(n for n in range(1, number) if number % n == 0)
+
+
+def get_abundant_number_sums(abundant_numbers):
+    abundant_sums = set()
+    for a in abundant_numbers:
+        for b in abundant_numbers:
+            sum_of_nums = a + b
+            if sum_of_nums <= 28123:
+                abundant_sums.add(sum_of_nums)
+            else:
+                break
+    return abundant_sums
+
+
+_get_sum_of_non_abundant_numbers()
